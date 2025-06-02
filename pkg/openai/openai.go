@@ -59,11 +59,16 @@ func (c *Client) ChatCompletion(query string) (string, error) {
 }
 
 func (c *Client) Text2Speech(text, voice string, outputFile string) error {
-	baseUrl := config.Conf.Tts.Openai.BaseUrl
-	if baseUrl == "" {
-		baseUrl = "https://api.openai.com/v1"
-	}
-	url := baseUrl + "/audio/speech"
+   baseUrl := config.Conf.Tts.Openai.BaseUrl
+   if baseUrl == "" {
+       baseUrl = "https://api.openai.com/v1"
+   }
+   url := baseUrl + "/audio/speech"
+   // 默认 voice 为 "ash"，防止传入空值导致调用失败
+   if strings.TrimSpace(voice) == "" {
+       log.GetLogger().Info("OpenAI TTS voice not specified, using default voice", zap.String("default_voice", "ash"))
+       voice = "ash"
+   }
 
 	// 创建HTTP请求
 	reqBody := fmt.Sprintf(`{
