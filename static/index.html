@@ -414,12 +414,23 @@
 			<div class="formGroup">
 				<label>配音:</label>
 				<input type="checkbox" id="voiceover-toggle">
-				<input
+				<!-- <input
 						type="text"
 						id="voiceover-voice"
 						placeholder="输入 voice code"
 						disabled
-				>
+				> -->
+				<select id="voiceover-voice" disabled>
+					<option value="nova">nova</option>
+					<option value="shimmer">shimmer</option>
+					<option value="echo">echo</option>
+					<option value="onyx">onyx</option>
+					<option value="fable">fable</option>
+					<option value="alloy">alloy</option>
+					<option value="ash">ash</option>
+					<option value="sage">sage</option>
+					<option value="coral">coral</option>
+				</select>
 				<span>或</span>
 				<label for="voiceFileInput" id="voiceFileInputName" class="voice-file-input">
 					选择音色克隆样本(仅阿里云)
@@ -621,7 +632,7 @@
 		};
 
 		if (formData.tts === 1) {
-			formData.tts_voice_code = +voiceoverVoice.value;
+			formData.tts_voice_code = voiceoverVoice.value;
 			if (uploadedAudioUrl) {
 				formData.tts_voice_clone_src_file_url = uploadedAudioUrl[0];
 			}
